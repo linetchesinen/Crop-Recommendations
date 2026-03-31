@@ -1,92 +1,106 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// Pages
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
 import Upload from "./pages/Upload.jsx";
 import Preview from "./pages/Preview.jsx";
 import CropRecommendation from "./pages/CropRecommendation.jsx";
 import YieldPrediction from "./pages/YieldPrediction.jsx";
 import WeatherForecast from "./pages/WeatherForecast.jsx";
 import WeatherReport from "./pages/WeatherReport.jsx";
-import Charts from "./pages/Charts.jsx";
+// Components
 import Layout from "./components/Layout.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
-
-
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
 
-        {/* Protected pages */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+        {/* Layout Route */}
+        <Route element={<Layout />}>
 
-        <Route
-          path="/upload"
-          element={
-            <ProtectedRoute>
-              <Upload />
-            </ProtectedRoute>
-          }
-        />
-         <Route
-          path="/preview"
-          element={
-            <ProtectedRoute>
-              <Preview />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/cropRecommendation"
-          element={
-            <ProtectedRoute>
-              <CropRecommendation />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/yieldPrediction"
-          element={
-            <ProtectedRoute>
-              <YieldPrediction />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/weatherforecast"
-          element={
-            <ProtectedRoute>
-              <WeatherForecast />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/weatherReport"
-          element={
-            <ProtectedRoute>
-              <WeatherReport />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/charts"
-          element={
-            <ProtectedRoute>
-              <Charts />
-            </ProtectedRoute>
-          }
-        />
+          {/* Public pages */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+
+          {/* Farmer Routes */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute roles={['farmer']}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/upload"
+            element={
+              <ProtectedRoute roles={['farmer']}>
+                <Upload />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/preview"
+            element={
+              <ProtectedRoute roles={['farmer']}>
+                <Preview />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/cropRecommendation"
+            element={
+              <ProtectedRoute roles={['farmer']}>
+                <CropRecommendation />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/yieldPrediction"
+            element={
+              <ProtectedRoute roles={['farmer']}>
+                <YieldPrediction />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/weatherforecast"
+            element={
+              <ProtectedRoute roles={['farmer']}>
+                <WeatherForecast />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/weatherReport"
+            element={
+              <ProtectedRoute roles={['farmer']}>
+                <WeatherReport />
+              </ProtectedRoute>
+            }
+          />
+          {/* Admin */}
+          <Route
+            path="/admindashboard"
+            element={
+              <ProtectedRoute roles={['admin']}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+        </Route>
 
       </Routes>
     </BrowserRouter>

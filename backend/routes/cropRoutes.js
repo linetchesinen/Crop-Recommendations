@@ -1,10 +1,23 @@
 import express from "express";
-import { uploadDataset, predictCropYield } from "../controllers/cropController.js";
-import { protect } from "../middleware/authMiddleware.js";
+import multer from "multer";
+import {
+  uploadDataset,
+  predictCropYield,
+  recommendCrop
+} from "../controllers/cropController.js";
 
 const router = express.Router();
 
-router.post("/upload", protect, uploadDataset);
-router.post("/predict", protect, predictCropYield);
+// 📁 Configure file upload
+const upload = multer({ dest: "uploads/" });
+
+// Dataset upload + bulk prediction
+router.post("/upload", upload.single("file"), uploadDataset);
+
+// Yield prediction
+router.post("/predict", predictCropYield);
+
+// Crop recommendation
+router.post("/recommend", recommendCrop);
 
 export default router;

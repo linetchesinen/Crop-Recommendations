@@ -45,32 +45,10 @@ export default function Preview() {
   return (
     <div className="flex min-h-screen bg-green-50 w-full bg-[url('/public/images/6.jpg')] bg-cover bg-center bg-no-repeat h-screen">
       {/* Sidebar */}
-      <Sidebar />
-
       {/* Main Content */}
       <div className="flex-1 flex flex-col w-full">
         {/* Navbar */}
-        <nav className="bg-teal-700 text-bold px-6 py-4 flex flex-col sm:flex-row justify-between items-center w-full gap-4 sm:gap-0">
-          <h1 className="font-bold text-xl">AgriTech Kenya</h1>
-
-          <div className="flex flex-wrap gap-3 sm:gap-6 bg-teal-500 p-3 rounded-lg hover:bg-teal-600 transition justify-center">
-            <Link to="/dashboard" className="hover:text-orange-300">Home</Link>
-            <Link to="/upload" className="hover:text-orange-300">Upload</Link>
-            <Link to="/preview" className="hover:text-orange-300">Preview</Link>
-            <Link to="/yieldPrediction" className="hover:text-orange-300">Yield Prediction</Link>
-            <Link to="/cropRecommendation" className="hover:text-orange-300">Crop Recommendation</Link>
-            <Link to="/weatherForecast" className="hover:text-orange-300">Weather Forecast</Link>
-            <Link to="/weatherReport" className="hover:text-orange-300">Weather Report</Link>
-            <Link to="/charts" className="hover:text-orange-300">Charts</Link>
-
-            <button
-              onClick={logout}
-              className="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded-md transition"
-            >
-              Logout
-            </button>
-          </div>
-        </nav>
+        
 
         {/* ================= MAIN ================= */}
         <main className="flex-1 p-10 flex items-center justify-center">

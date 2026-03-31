@@ -3,19 +3,7 @@ import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <div className="min-h-screen  bg-green-50 flex flex-col ">
-      {/* Navigation */}
-      <header className="flex justify-between items-center p-6 max-w-7xl mx-auto w-full bg-cyran-900">
-        <h1 className="text-2xl font-bold text-green-800">AgriTechKen</h1>
-        <nav className="space-x-6 bg-teal-500 p-3 rounded-lg">
-          <Link to="/" className="text-gray-700 hover:text-green-600 transition">
-            HOME
-          </Link>
-          <Link to="/login" className="text-gray-700 hover:text-green-600 transition">
-            LOGIN
-          </Link>
-        </nav>
-      </header>
-
+  
       {/* Main */}
       <main className="flex-1 flex flex-col items-center justify-center p-6 w-full ">
         {/* Hero */}
@@ -107,14 +95,6 @@ export default function Home() {
             </Link>
 
           </div>
-          {/* Charts */}
-            <Link to="/login" className="block">
-              <div className="bg-white pl-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div className="text-4xl mb-3">🌡️</div>
-                <h4 className="text-xl font-semibold text-gray-800 mb-2 ">Charts</h4>
-                <p className="bg-black text-white text-xs font-semibold px-3 py-1 rounded-md inline-block">Login to Access</p>
-              </div>
-            </Link>
         </div>
       </main>
     </div>

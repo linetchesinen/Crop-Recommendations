@@ -1,18 +1,30 @@
+import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
+import Sidebar from "./Sidebar";
 
-export default function Layout({ children }) {
+export default function Layout() {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Navbar */}
+
+      {/* Top navbar */}
       <Navbar />
 
-      {/* Page content */}
-      <main className="flex-1 p-6">{children}</main>
+      {/* Body */}
+      <div className="flex flex-1">
+
+        {/* Sidebar visible on all pages */}
+        <Sidebar />
+
+        {/* Page content */}
+        <main className="flex-1 p-6 bg-green-50">
+          <Outlet />
+        </main>
+
+      </div>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 py-4 px-6 text-center text-sm text-gray-600">
-        © 2026 AgriTech Kenya. Empowering farmers with technology.
-      </footer>
+      <Footer />
     </div>
   );
 }

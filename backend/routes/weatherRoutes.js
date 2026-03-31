@@ -1,8 +1,12 @@
 import express from "express";
-import { getWeather } from "../controllers/weatherController.js";
+import { getCurrentWeather, getForecast } from "../controllers/weatherController.js";
 
 const router = express.Router();
 
-router.get("/", getWeather);
+// Current weather (geolocation)
+router.get("/current", getCurrentWeather);
+
+// 5-day forecast (city)
+router.get("/forecast", getForecast);
 
 export default router;
