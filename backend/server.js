@@ -11,6 +11,7 @@ import cropRoutes from "./routes/cropRoutes.js";
 import weatherRoutes from "./routes/weatherRoutes.js";
 import datasetRoutes from "./routes/datasetRoutes.js";
 import predictRoutes from "./routes/predictRoutes.js";
+import contactRoutes from "./routes/contactRoutes.js";
 
 
 const app = express();
@@ -44,6 +45,10 @@ app.use("/api/predict", predictRoutes);
 
 // Dataset
 app.use("/api/dataset", datasetRoutes);
+
+// Contact
+app.use("/api/contact", contactRoutes);
+
 
 // Root
 app.get("/", (req, res) => {

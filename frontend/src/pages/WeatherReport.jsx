@@ -1,32 +1,51 @@
 import React, { useState } from "react";
 
 export default function WeatherReport() {
-  const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const WEATHER_API_BASE = "http://localhost:3000/api/weather";
 
+  // Get browser geolocation
+  const getCoordinates = () =>
+    new Promise((resolve, reject) => {
+      if (!navigator.geolocation) return reject("Geolocation not supported");
+      navigator.geolocation.getCurrentPosition(
+        (pos) => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+        (err) => reject(err)
+      );
+    });
+
   const generateReport = async (e) => {
     e.preventDefault();
-    if (!location.trim() || !date) return;
+    if (!date) return;
 
     setLoading(true);
     setReport(null);
 
     try {
-      const res = await fetch(`${WEATHER_API_BASE}/forecast?city=${location.trim()}`);
+      let lat, lon;
+      try {
+        const coords = await getCoordinates();
+        lat = coords.lat;
+        lon = coords.lon;
+      } catch {
+        alert("Location access denied. Using default city: Nairobi");
+      }
+
+      // Call backend with lat/lon or fallback to city
+      const query = lat && lon ? `lat=${lat}&lon=${lon}` : "city=Nairobi";
+      const res = await fetch(`${WEATHER_API_BASE}/forecast?${query}`);
       const data = await res.json();
 
-      if (data.cod !== "200") {
+      if (data.cod !== "200" && data.cod !== 200) {
         alert(`Error: ${data.message || data.error}`);
         setLoading(false);
         return;
       }
 
       const dayForecasts = data.list.filter(item => item.dt_txt.startsWith(date));
-
       if (!dayForecasts.length) {
         alert("No forecast data available for this date");
         setLoading(false);
@@ -52,7 +71,7 @@ export default function WeatherReport() {
       }));
 
       setReport({
-        location,
+        location: lat && lon ? `Lat: ${lat.toFixed(2)}, Lon: ${lon.toFixed(2)}` : "Nairobi",
         selectedDate: date,
         avgTemp,
         avgHumidity,
@@ -76,13 +95,6 @@ export default function WeatherReport() {
           <h1 className="text-3xl font-bold mb-2">Daily Weather Report</h1>
 
           <form onSubmit={generateReport} className="grid gap-4 md:grid-cols-2 mb-6">
-            <input
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="Enter city"
-              className="border px-4 py-2 rounded"
-              required
-            />
             <input
               type="date"
               value={date}

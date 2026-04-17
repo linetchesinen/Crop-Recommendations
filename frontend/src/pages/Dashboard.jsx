@@ -23,7 +23,7 @@ export default function Dashboard() {
   };
 
   const features = [
-    { name: "Upload Dataset", path: "/upload", icon: "📤" },
+    { name: "Contact Us", path: "/contact", icon: "📞" },
     { name: "Preview Data", path: "/preview", icon: "👁️" },
     { name: "Yield Prediction", path: "/yieldprediction", icon: "📊" },
     { name: "Crop Recommendation", path: "/croprecommendation", icon: "🌾" },

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 export default function WeatherForecast() {
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("");      // City name for display/input
+  const [coords, setCoords] = useState(null);        // Latitude & Longitude
   const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -10,38 +11,54 @@ export default function WeatherForecast() {
   // Auto-detect user location
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        const { latitude, longitude } = position.coords;
-        try {
-          const res = await fetch(
-            `${WEATHER_API_BASE}/current?lat=${latitude}&lon=${longitude}`
-          );
-          const data = await res.json();
-          if (data.sys?.country === "KE") {
-            setLocation(data.name);
-            fetchForecast(data.name);
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          setCoords({ lat: latitude, lon: longitude });
+
+          try {
+            // Fetch current weather for display city
+            const res = await fetch(`${WEATHER_API_BASE}/current?lat=${latitude}&lon=${longitude}`);
+            const data = await res.json();
+            if (data.sys?.country === "KE") setLocation(data.name);
+
+            // Fetch forecast automatically
+            fetchForecast(latitude, longitude, data.name);
+
+          } catch (error) {
+            console.error("Geolocation weather fetch failed:", error);
           }
-        } catch (error) {
-          console.error("Geolocation weather fetch failed:", error);
+        },
+        (err) => {
+          console.warn("Location access denied. Using default city Nairobi.");
+          setLocation("Nairobi");
+          fetchForecast(null, null, "Nairobi");
         }
-      });
+      );
+    } else {
+      // Fallback if browser doesn't support geolocation
+      setLocation("Nairobi");
+      fetchForecast(null, null, "Nairobi");
     }
   }, []);
 
-  const fetchForecast = async (city) => {
+  const fetchForecast = async (lat, lon, city) => {
     setLoading(true);
     setForecast(null);
 
     try {
-      const res = await fetch(`${WEATHER_API_BASE}/forecast?city=${city.trim()}`);
+      // Build query params
+      const query = lat && lon ? `lat=${lat}&lon=${lon}` : `city=${city}`;
+      const res = await fetch(`${WEATHER_API_BASE}/forecast?${query}`);
       const data = await res.json();
 
-      if (data.cod !== "200") {
+      if (data.cod !== "200" && data.cod !== 200) {
         alert(`Forecast error: ${data.message || data.error}`);
         setLoading(false);
         return;
       }
 
+      // Filter one entry per day (every 24h / 8 intervals)
       const daily = data.list.filter((_, idx) => idx % 8 === 0).map((item) => ({
         day: new Date(item.dt_txt).toLocaleDateString("en-KE", { weekday: "long" }),
         date: new Date(item.dt_txt).toLocaleDateString("en-KE", { month: "short", day: "numeric" }),
@@ -69,7 +86,10 @@ export default function WeatherForecast() {
           <h1 className="text-3xl font-bold text-gray-800 mb-2">Weather Forecast</h1>
           <p className="text-gray-600 mb-6">Get 5-day weather forecast for Kenyan cities</p>
 
-          <form onSubmit={(e) => { e.preventDefault(); fetchForecast(location); }} className="mb-8 flex gap-4">
+          <form
+            onSubmit={(e) => { e.preventDefault(); fetchForecast(coords?.lat, coords?.lon, location); }}
+            className="mb-8 flex gap-4"
+          >
             <input
               type="text"
               value={location}

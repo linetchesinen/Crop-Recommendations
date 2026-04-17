@@ -16,7 +16,7 @@ export default function Sidebar() {
 
   const links = [
     { name: "Dashboard", path: "/dashboard", icon: "🏠" },
-    { name: "Upload Dataset", path: "/upload", icon: "📤" },
+    { name: "Contact Us", path: "/contact", icon: "📞" },
     { name: "Preview Data", path: "/preview", icon: "👁️" },
     { name: "Yield Prediction", path: "/yieldprediction", icon: "📊" },
     { name: "Crop Recommendation", path: "/croprecommendation", icon: "🌾" },
@@ -28,10 +28,10 @@ export default function Sidebar() {
     <div
       className={`${
         collapsed ? "w-20" : "w-64"
-      } bg-green-800 text-white min-h-screen flex flex-col transition-all duration-300`}
+      } bg-teal-900 text-white min-h-screen flex flex-col transition-all duration-300`}
     >
       {/* Logo Section */}
-      <div className="flex items-center justify-between p-4 border-b border-green-700">
+      <div className="flex items-center justify-between p-4 border-b border-teal-900">
         {!collapsed && <h1 className="font-bold text-lg">🌾 AgriTech</h1>}
 
         <button

@@ -5,12 +5,13 @@ import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
-import Upload from "./pages/Upload.jsx";
+import Upload from "./pages/Contact.jsx";
 import Preview from "./pages/Preview.jsx";
 import CropRecommendation from "./pages/CropRecommendation.jsx";
 import YieldPrediction from "./pages/YieldPrediction.jsx";
 import WeatherForecast from "./pages/WeatherForecast.jsx";
 import WeatherReport from "./pages/WeatherReport.jsx";
+import Contact from "./pages/Contact.jsx";  
 // Components
 import Layout from "./components/Layout.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
@@ -78,6 +79,14 @@ export default function App() {
             element={
               <ProtectedRoute roles={['farmer']}>
                 <WeatherForecast />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <ProtectedRoute roles={['farmer']}>
+                <Contact />
               </ProtectedRoute>
             }
           />

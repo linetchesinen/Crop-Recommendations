@@ -33,11 +33,11 @@ export default function Home() {
             {/* Upload */}
             <Link to="/login" className="block">
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div className="text-4xl mb-3">📤</div>
+                <div className="text-4xl mb-3">📞</div>
 
-                <h4 className="text-xl font-semibold text-gray-800 mb-2">Upload</h4>
+                <h4 className="text-xl font-semibold text-gray-800 mb-2">contacts</h4>
                 <p className="text-gray-600 text-sm mb-3">
-                  Upload crop and field images for analysis
+                  Contact us for support, inquiries, or feedback about our services
                 </p>
                 <p className="bg-black text-white text-xs font-semibold px-3 py-1 rounded-md inline-block">Login to Access</p>
               </div>

@@ -19,7 +19,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-teal-700 text-white px-6 py-4 flex justify-between items-center">
+    <nav className="bg-teal-900  text-white px-6 py-4 flex justify-between items-center">
       <h1 className="font-bold text-xl">AgriTech Kenya</h1>
 
       <div className="flex gap-6 items-center">
@@ -28,7 +28,7 @@ export default function Navbar() {
             {/* Links visible only when logged in */}
             <span className="text-white">👨‍🌾 {user.user_metadata?.username || user.email}</span>
             <Link to="/dashboard" className="hover:text-orange-300 transition">Home</Link>
-            <Link to="/upload" className="hover:text-orange-300 transition">Upload</Link>
+            <Link to="/contact" className="hover:text-orange-300 transition">Contact Us</Link>
             <Link to="/preview" className="hover:text-orange-300 transition">Preview</Link>
             <Link to="/yieldPrediction" className="hover:text-orange-300 transition">Yield Prediction</Link>
             <Link to="/cropRecommendation" className="hover:text-orange-300 transition">Crop Recommendation</Link>
